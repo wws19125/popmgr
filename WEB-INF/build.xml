@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project basedir="." default="compile">
+  <property name="src" value="src"/>
+  <property name="cls" value="classes"/>
+  <path id="cp">
+    <fileset dir="lib">
+      <include name="*.jar"/>
+    </fileset>
+    <pathelement path="${cls}"/>
+  </path>
+
+  <target name="compile">
+    <delete dir="${cls}"/>
+    <mkdir dir="${cls}"/>
+    <copy todir="${cls}">
+      <fileset dir="${src}">
+	<exclude name="*/*/*.java"/>
+      </fileset>
+    </copy>
+    <javac destdir="${cls}" debug="true" includeantruntime="yes" deprecation="false" optimize="false" failonerror="true">
+      <src path="${src}"/>
+      <classpath refid="cp"/>
+    </javac>
+  </target>
+</project>
