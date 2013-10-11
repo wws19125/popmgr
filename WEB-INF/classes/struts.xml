@@ -4,11 +4,31 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-  <package name="wang" extends="struts-default">
-    <action name="login" class="popmgr.controller.LoginAction">
-      <result name="input">/login.jsp</result>
+  <package name="authorityCheck" extends="struts-default">
+    <interceptors>
+      <interceptor name="authority" class="popmgr.interceptor.InterceptorAuthority"/>
+      <interceptor-stack name="mdefautinterceptor">
+	<interceptor-ref name="defaultStack"/>
+	<interceptor-ref name="authority"/>
+      </interceptor-stack>
+    </interceptors>
+    <default-interceptor-ref name="mdefautinterceptor"/>
+    <global-results>
+      <!-- 当返回login视图名时，转入login.jsp页面 -->
+      <result name="login">/login.jsp</result>
+    </global-results>
+  </package>
+  <package name="popmgr" extends="authorityCheck">    
+    <action name="login" class="popmgr.controller.LoginAction" method="login">
       <result name="error">/error.jsp</result>
       <result name="success">/welcome.jsp</result>
+    </action>
+    <action name="logout" class="popmgr.controller.LoginAction" method="logout">
+      
+    </action>
+
+    <action name="tt">
+    <result>/welcome.jsp</result>
     </action>
   </package> 
 </struts>

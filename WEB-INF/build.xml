@@ -21,5 +21,6 @@
       <src path="${src}"/>
       <classpath refid="cp"/>
     </javac>
+    <exec executable="tomcatreload"/>
   </target>
 </project>
